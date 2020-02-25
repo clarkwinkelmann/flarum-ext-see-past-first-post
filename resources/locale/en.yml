@@ -1,5 +1,6 @@
 clarkwinkelmann-see-past-first-post:
     forum:
+        cant-see: You do not have permission to see the replies
         login-to-see: Log in to see the replies
 
     admin:
@@ -8,3 +9,4 @@ clarkwinkelmann-see-past-first-post:
         settings:
             title: See past first post settings
             hide-comment-count: Hide comment count on discussion list
+            hide-last-post: Hide last post user and date on discussion list

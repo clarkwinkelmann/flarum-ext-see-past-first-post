@@ -1,6 +1,7 @@
 import {extend, override} from 'flarum/extend';
 import app from 'flarum/app';
 import PostStream from 'flarum/components/PostStream';
+import DiscussionListItem from 'flarum/components/DiscussionListItem';
 
 /* global m */
 
@@ -20,7 +21,37 @@ app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
             insertAtIndex--;
         }
 
-        // TODO: different message for users who need additional groups instead of logging in
-        vdom.children.splice(insertAtIndex, 0, m('.Post.CantSeePastFirstPost', app.translator.trans(translationPrefix + 'login-to-see')));
+        vdom.children.splice(insertAtIndex, 0, m('.Post.CantSeePastFirstPost', app.translator.trans(translationPrefix + (app.session.user ? 'cant-see' : 'login-to-see'))));
+    });
+
+    extend(DiscussionListItem.prototype, 'view', function (vdom) {
+        if (!this.props.discussion.attribute('seePastFirstPostHiddenCount')) {
+            return;
+        }
+
+        // Sometimes we will get {subtree: retain}, in which case there's nothing to alter
+        if (!Array.isArray(vdom.children)) {
+            return;
+        }
+
+        vdom.children.forEach(content => {
+            if (content.attrs && content.attrs.className.indexOf('DiscussionListItem-content') !== -1) {
+                const countItemIndex = content.children.findIndex(d => d.attrs && d.attrs.className === 'DiscussionListItem-count');
+
+                if (countItemIndex !== -1) {
+                    content.children.splice(countItemIndex, 1);
+                }
+            }
+        });
+    });
+
+    override(DiscussionListItem.prototype, 'showFirstPost', function (original) {
+        // When the last post is hidden, force the list to show the info about the first post
+        // Otherwise if we show comment count but hide last post, the TerminalPost would still try to show the last post
+        if (this.props.discussion.attribute('seePastFirstPostHiddenLastPost')) {
+            return true;
+        }
+
+        return original();
     });
 });

@@ -23,6 +23,15 @@ export default class SeePastFirstPostSettingsModal extends SettingsModal {
                     children: app.translator.trans(translationPrefix + 'hide-comment-count'),
                 }),
             ]),
+            m('.Form-group', [
+                Switch.component({
+                    state: this.setting(settingsPrefix + 'hideLastPost')() === '1',
+                    onchange: value => {
+                        this.setting(settingsPrefix + 'hideLastPost')(value ? '1' : '0');
+                    },
+                    children: app.translator.trans(translationPrefix + 'hide-last-post'),
+                }),
+            ]),
         ];
     }
 }

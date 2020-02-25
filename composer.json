@@ -1,0 +1,34 @@
+{
+    "name": "clarkwinkelmann/flarum-ext-see-past-first-post",
+    "description": "Permission to let users see past the first post of discussions",
+    "keywords": [
+        "flarum"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "require": {
+        "flarum/core": ">=0.1.0-beta.11 <0.1.0-beta.13"
+    },
+    "authors": [
+        {
+            "name": "Clark Winkelmann",
+            "email": "clark.winkelmann@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ClarkWinkelmann\\SeePastFirstPost\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "See past first post",
+            "icon": {
+                "name": "fas fa-stream",
+                "backgroundColor": "#684ba6",
+                "color": "#fff"
+            }
+        }
+    }
+}

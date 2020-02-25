@@ -1,0 +1,10 @@
+clarkwinkelmann-see-past-first-post:
+    forum:
+        login-to-see: Connectez-vous pour voir les réponses
+
+    admin:
+        permissions:
+            see-past-first-post: Voir au-delà du premier message
+        settings:
+            title: Réglages Voir au-delà du premier message
+            hide-comment-count: Cacher le nombre de réponses dans la liste des discussions

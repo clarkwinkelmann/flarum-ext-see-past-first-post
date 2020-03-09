@@ -2,10 +2,7 @@ import {extend, override} from 'flarum/extend';
 import app from 'flarum/app';
 import PostStream from 'flarum/components/PostStream';
 import DiscussionListItem from 'flarum/components/DiscussionListItem';
-
-/* global m */
-
-const translationPrefix = 'clarkwinkelmann-see-past-first-post.forum.';
+import CantSeePastFirstPost from './components/CantSeePastFirstPost';
 
 app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
     extend(PostStream.prototype, 'view', function (vdom) {
@@ -21,7 +18,7 @@ app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
             insertAtIndex--;
         }
 
-        vdom.children.splice(insertAtIndex, 0, m('.Post.CantSeePastFirstPost', app.translator.trans(translationPrefix + (app.session.user ? 'cant-see' : 'login-to-see'))));
+        vdom.children.splice(insertAtIndex, 0, CantSeePastFirstPost.component());
     });
 
     override(PostStream.prototype, 'count', function (original) {

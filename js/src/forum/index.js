@@ -24,6 +24,14 @@ app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
         vdom.children.splice(insertAtIndex, 0, m('.Post.CantSeePastFirstPost', app.translator.trans(translationPrefix + (app.session.user ? 'cant-see' : 'login-to-see'))));
     });
 
+    override(PostStream.prototype, 'count', function (original) {
+        if (this.discussion.attribute('canSeePastFirstPost') || this.props.discussion.attribute('seePastFirstPostHiddenCount')) {
+            return original();
+        }
+
+        return this.discussion.commentCount();
+    });
+
     extend(DiscussionListItem.prototype, 'view', function (vdom) {
         if (!this.props.discussion.attribute('seePastFirstPostHiddenCount')) {
             return;

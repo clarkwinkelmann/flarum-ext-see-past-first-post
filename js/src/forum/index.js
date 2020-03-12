@@ -18,7 +18,9 @@ app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
             insertAtIndex--;
         }
 
-        vdom.children.splice(insertAtIndex, 0, CantSeePastFirstPost.component());
+        vdom.children.splice(insertAtIndex, 0, CantSeePastFirstPost.component({
+            key: 'see-past-first-post',
+        }));
     });
 
     override(PostStream.prototype, 'count', function (original) {

@@ -11,6 +11,7 @@ app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
             icon: 'fas fa-stream',
             label: app.translator.trans('clarkwinkelmann-see-past-first-post.admin.permissions.see-past-first-post'),
             permission: 'discussion.seePastFirstPost',
+            allowGuest: true,
         });
     });
 });

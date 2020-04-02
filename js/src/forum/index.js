@@ -4,6 +4,8 @@ import PostStream from 'flarum/components/PostStream';
 import DiscussionListItem from 'flarum/components/DiscussionListItem';
 import CantSeePastFirstPost from './components/CantSeePastFirstPost';
 
+export * from './components';
+
 app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
     extend(PostStream.prototype, 'view', function (vdom) {
         if (this.discussion.attribute('canSeePastFirstPost')) {

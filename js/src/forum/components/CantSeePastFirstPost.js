@@ -2,7 +2,7 @@ import app from 'flarum/app';
 import Component from 'flarum/Component';
 import Button from 'flarum/components/Button';
 import SignUpModal from 'flarum/components/SignUpModal';
-import LogInModal from 'flarum/components/LogInModal';
+import DiscussionControls from 'flarum/utils/DiscussionControls';
 import ItemList from 'flarum/utils/ItemList';
 
 /* global m */
@@ -27,7 +27,11 @@ export default class CantSeePastFirstPost extends Component {
         items.add('logIn', Button.component({
             children: app.translator.trans('core.forum.header.log_in_link'),
             className: 'Button Button--primary',
-            onclick: () => app.modal.show(new LogInModal()),
+            onclick: () => {
+                // Re-use the discussion controls, that way other extensions that replaced the login action
+                // Will also apply here without any additional logic (like the kilowhat/wordpress wordpress-only login)
+                DiscussionControls.replyAction();
+            },
         }));
 
         if (app.forum.attribute('allowSignUp')) {

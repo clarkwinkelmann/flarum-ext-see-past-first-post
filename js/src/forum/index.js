@@ -2,6 +2,7 @@ import {extend, override} from 'flarum/extend';
 import app from 'flarum/app';
 import PostStream from 'flarum/components/PostStream';
 import DiscussionListItem from 'flarum/components/DiscussionListItem';
+import PostStreamState from 'flarum/states/PostStreamState';
 import CantSeePastFirstPost from './components/CantSeePastFirstPost';
 
 export * from './components';
@@ -16,7 +17,7 @@ app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
 
         // We want to insert below the feed, but above the reply box
         // So do we perform the same check that decides if the reply box is visible, and go one index before if that's the case
-        if (insertAtIndex > 0 && this.viewingEnd && (!app.session.user || this.discussion.canReply())) {
+        if (insertAtIndex > 0 && this.stream.viewingEnd() && (!app.session.user || this.discussion.canReply())) {
             insertAtIndex--;
         }
 
@@ -25,16 +26,26 @@ app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
         }));
     });
 
-    override(PostStream.prototype, 'count', function (original) {
-        if (this.discussion.attribute('canSeePastFirstPost') || this.props.discussion.attribute('seePastFirstPostHiddenCount')) {
+    override(PostStreamState.prototype, 'count', function (original) {
+        if (this.discussion.attribute('canSeePastFirstPost') || this.discussion.attribute('seePastFirstPostHiddenCount')) {
             return original();
         }
 
         return this.discussion.commentCount();
     });
 
+    override(PostStreamState.prototype, 'viewingEnd', function (original) {
+        // We need to force viewingEnd to be true otherwise when we tweak PostStreamState.prototype.count
+        // the "load more" button would appear
+        if (this.discussion.attribute('canSeePastFirstPost')) {
+            return original();
+        }
+
+        return true;
+    });
+
     extend(DiscussionListItem.prototype, 'view', function (vdom) {
-        if (!this.props.discussion.attribute('seePastFirstPostHiddenCount')) {
+        if (!this.attrs.discussion.attribute('seePastFirstPostHiddenCount')) {
             return;
         }
 
@@ -57,7 +68,7 @@ app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
     override(DiscussionListItem.prototype, 'showFirstPost', function (original) {
         // When the last post is hidden, force the list to show the info about the first post
         // Otherwise if we show comment count but hide last post, the TerminalPost would still try to show the last post
-        if (this.props.discussion.attribute('seePastFirstPostHiddenLastPost')) {
+        if (this.attrs.discussion.attribute('seePastFirstPostHiddenLastPost')) {
             return true;
         }
 

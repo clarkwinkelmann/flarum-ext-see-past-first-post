@@ -7,6 +7,5 @@ clarkwinkelmann-see-past-first-post:
         permissions:
             see-past-first-post: Voir au-delà du premier message
         settings:
-            title: Réglages Voir au-delà du premier message
             hide-comment-count: Cacher le nombre de réponses dans la liste des discussions
             hide-last-post: Cacher l'auteur et la date de la dernière réponse dans la liste des discussions

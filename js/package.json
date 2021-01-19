@@ -1,5 +1,5 @@
 {
-    "name": "@clarkwinkelmann/flarum-ext-see-past-first-post",
+    "name": "@clarkwinkelmann/see-past-first-post",
     "version": "0.0.0",
     "private": true,
     "dependencies": {

@@ -2,8 +2,9 @@
 
 namespace ClarkWinkelmann\SeePastFirstPost;
 
+use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Extend;
-use Illuminate\Contracts\Events\Dispatcher;
+use Flarum\Post\Post;
 
 return [
     (new Extend\Frontend('forum'))
@@ -15,9 +16,9 @@ return [
 
     new Extend\Locales(__DIR__ . '/resources/locale'),
 
-    new Extenders\DiscussionAttributes(),
+    (new Extend\ApiSerializer(DiscussionSerializer::class))
+        ->mutate(DiscussionAttributes::class),
 
-    function (Dispatcher $events) {
-        $events->subscribe(Access\PostPolicy::class);
-    },
+    (new Extend\ModelVisibility(Post::class))
+        ->scope(PostVisibilityScope::class),
 ];

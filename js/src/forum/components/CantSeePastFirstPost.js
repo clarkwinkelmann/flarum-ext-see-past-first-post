@@ -25,21 +25,21 @@ export default class CantSeePastFirstPost extends Component {
         const items = new ItemList();
 
         items.add('logIn', Button.component({
-            children: app.translator.trans('core.forum.header.log_in_link'),
             className: 'Button Button--primary',
             onclick: () => {
                 // Re-use the discussion controls, that way other extensions that replaced the login action
                 // Will also apply here without any additional logic (like the kilowhat/wordpress wordpress-only login)
-                DiscussionControls.replyAction();
+                DiscussionControls.replyAction().catch(() => {
+                    // Ignore rejection since it's rejected when the modal opens
+                });
             },
-        }));
+        }, app.translator.trans('core.forum.header.log_in_link')));
 
         if (app.forum.attribute('allowSignUp')) {
             items.add('signUp', Button.component({
-                children: app.translator.trans('core.forum.header.sign_up_link'),
                 className: 'Button Button--link',
-                onclick: () => app.modal.show(new SignUpModal()),
-            }));
+                onclick: () => app.modal.show(SignUpModal),
+            }, app.translator.trans('core.forum.header.sign_up_link')));
         }
 
         return items;

@@ -2,7 +2,7 @@
 
 namespace ClarkWinkelmann\SeePastFirstPost;
 
-use Flarum\Api\Serializer\DiscussionSerializer;
+use Flarum\Api\Serializer\BasicDiscussionSerializer;
 use Flarum\Extend;
 use Flarum\Post\Post;
 
@@ -16,7 +16,7 @@ return [
 
     new Extend\Locales(__DIR__ . '/resources/locale'),
 
-    (new Extend\ApiSerializer(DiscussionSerializer::class))
+    (new Extend\ApiSerializer(BasicDiscussionSerializer::class))
         ->attributes(DiscussionAttributes::class),
 
     (new Extend\ModelVisibility(Post::class))

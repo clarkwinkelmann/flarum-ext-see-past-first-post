@@ -2,14 +2,18 @@
 
 namespace ClarkWinkelmann\SeePastFirstPost;
 
-use Flarum\Api\Serializer\DiscussionSerializer;
+use Flarum\Api\Serializer\BasicDiscussionSerializer;
 use Flarum\Discussion\Discussion;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Support\Arr;
 
+/**
+ * Most use cases are for DiscussionSerializer but we use BasicDiscussionSerializer to make sure we hide the relationships
+ * even if other extensions were to include them under BasicDiscussionSerializer
+ */
 class DiscussionAttributes
 {
-    public function __invoke(DiscussionSerializer $serializer, Discussion $discussion): array
+    public function __invoke(BasicDiscussionSerializer $serializer, Discussion $discussion): array
     {
         $canSee = $serializer->getActor()->can('seePastFirstPost', $discussion);
 

@@ -44,6 +44,10 @@ class DiscussionAttributes
                     $attributes['lastReadPostNumber'] = null;
                 }
             }
+
+            if ($settings->get('clarkwinkelmann-see-past-first-post.hideFirstPost')) {
+                $discussion->setRelation('firstPost', null);
+            }
         }
 
         return $attributes;

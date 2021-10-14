@@ -9,3 +9,4 @@ clarkwinkelmann-see-past-first-post:
         settings:
             hide-comment-count: Cacher le nombre de réponses dans la liste des discussions
             hide-last-post: Cacher l'auteur et la date de la dernière réponse dans la liste des discussions
+            hide-first-post: Également cacher le premier message

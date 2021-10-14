@@ -26,6 +26,14 @@ app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
                         },
                     }, app.translator.trans(translationPrefix + 'hide-last-post')),
                 ]),
+                m('.Form-group', [
+                    Switch.component({
+                        state: this.setting(settingsPrefix + 'hideFirstPost')() === '1',
+                        onchange: (value: string) => {
+                            this.setting(settingsPrefix + 'hideFirstPost')(value ? '1' : '0');
+                        },
+                    }, app.translator.trans(translationPrefix + 'hide-first-post')),
+                ]),
             ];
         })
         .registerPermission({

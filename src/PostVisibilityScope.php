@@ -3,32 +3,42 @@
 namespace ClarkWinkelmann\SeePastFirstPost;
 
 use Flarum\Extension\ExtensionManager;
+use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\User;
 use Illuminate\Database\Eloquent\Builder;
 
 class PostVisibilityScope
 {
+    protected $settings;
+
+    public function __construct(SettingsRepositoryInterface $settings)
+    {
+        $this->settings = $settings;
+    }
+
     public function __invoke(User $actor, Builder $query)
     {
         $query->where(function (Builder $query) use ($actor) {
-            $query
-                ->whereHas('discussion', function (Builder $query) use ($actor) {
-                    // The following will be handled by Tag's scopeAll which will check our `discussion.seePastFirstPost` tag-scoped permission
-                    // If Tags is disabled, this will have no impact on the query and all discussions will match
-                    $query->whereVisibleTo($actor, 'seePastFirstPost');
+            $query->whereHas('discussion', function (Builder $query) use ($actor) {
+                // The following will be handled by Tag's scopeAll which will check our `discussion.seePastFirstPost` tag-scoped permission
+                // If Tags is disabled, this will have no impact on the query and all discussions will match
+                $query->whereVisibleTo($actor, 'seePastFirstPost');
 
-                    /**
-                     * @var $manager ExtensionManager
-                     */
-                    $manager = resolve(ExtensionManager::class);
+                /**
+                 * @var $manager ExtensionManager
+                 */
+                $manager = resolve(ExtensionManager::class);
 
-                    // Workaround for the tag scope not returning discussions with no tags
-                    // @see https://github.com/flarum/core/issues/2554
-                    if ($manager->isEnabled('flarum-tags') && $actor->hasPermission('discussion.seePastFirstPost')) {
-                        $query->orWhereDoesntHave('tags');
-                    }
-                })
-                ->orWhere('posts.number', '=', 1);
+                // Workaround for the tag scope not returning discussions with no tags
+                // @see https://github.com/flarum/core/issues/2554
+                if ($manager->isEnabled('flarum-tags') && $actor->hasPermission('discussion.seePastFirstPost')) {
+                    $query->orWhereDoesntHave('tags');
+                }
+            });
+
+            if (!$this->settings->get('clarkwinkelmann-see-past-first-post.hideFirstPost')) {
+                $query->orWhere('posts.number', '=', 1);
+            }
         });
     }
 }

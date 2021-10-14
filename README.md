@@ -16,7 +16,8 @@ Due to limitations in the Flarum tag system, if the discussion possesses any tag
 Two additional settings allow customizing the restrictions even further:
 
 - **Hide comment count on discussion list**: this will hide the total post and recipient count from the API and the homepage.
-- **Hide last post user and date on discussion list**: this will hide the lastUser, lastPost, last post date and number as well as the user last read date and number from the API and homepage.
+- **Hide last post user and date on discussion list**: this will hide the `lastUser`, `lastPost` relationships, last post date and number as well as the user last read date and number from the API and homepage. It will also hide the tag `lastPostedDiscussion` relationship and last posted date from the API and tag list.
+- **Hide first post as well**: this will hide the `firstPost` relationship from the API and homepage, and also hide post with number 1 when browsing a discussion, effectively hiding the discussion content in full.
 
 ## Installation
 
@@ -33,7 +34,7 @@ You can [contact me](https://clarkwinkelmann.com/flarum) to sponsor additional f
 
 Support is offered on a "best effort" basis through the Flarum community thread.
 
-**Sponsors**: [HereWeLink](https://www.herewelink.fr/)
+**Sponsors**: [HereWeLink](https://www.herewelink.fr/), [FlarumTR](https://flarumtr.com/)
 
 ## Links
 

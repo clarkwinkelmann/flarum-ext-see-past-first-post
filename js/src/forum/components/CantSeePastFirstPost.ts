@@ -1,11 +1,9 @@
-import app from 'flarum/app';
-import Component from 'flarum/Component';
-import Button from 'flarum/components/Button';
-import SignUpModal from 'flarum/components/SignUpModal';
-import DiscussionControls from 'flarum/utils/DiscussionControls';
-import ItemList from 'flarum/utils/ItemList';
-
-/* global m */
+import app from 'flarum/forum/app';
+import Component from 'flarum/common/Component';
+import Button from 'flarum/common/components/Button';
+import SignUpModal from 'flarum/forum/components/SignUpModal';
+import DiscussionControls from 'flarum/forum/utils/DiscussionControls';
+import ItemList from 'flarum/common/utils/ItemList';
 
 const translationPrefix = 'clarkwinkelmann-see-past-first-post.forum.';
 

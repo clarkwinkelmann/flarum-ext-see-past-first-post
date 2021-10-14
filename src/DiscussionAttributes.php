@@ -21,7 +21,7 @@ class DiscussionAttributes
             /**
              * @var $settings SettingsRepositoryInterface
              */
-            $settings = app(SettingsRepositoryInterface::class);
+            $settings = resolve(SettingsRepositoryInterface::class);
 
             if ($settings->get('clarkwinkelmann-see-past-first-post.hideCommentCount')) {
                 $attributes['commentCount'] = 0;

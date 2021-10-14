@@ -20,7 +20,7 @@ class PostVisibilityScope
                     /**
                      * @var $manager ExtensionManager
                      */
-                    $manager = app(ExtensionManager::class);
+                    $manager = resolve(ExtensionManager::class);
 
                     // Workaround for the tag scope not returning discussions with no tags
                     // @see https://github.com/flarum/core/issues/2554

@@ -5,6 +5,7 @@ namespace ClarkWinkelmann\SeePastFirstPost;
 use Flarum\Api\Serializer\BasicDiscussionSerializer;
 use Flarum\Extend;
 use Flarum\Post\Post;
+use Flarum\Tags\Api\Serializer\TagSerializer;
 
 return [
     (new Extend\Frontend('forum'))
@@ -18,6 +19,9 @@ return [
 
     (new Extend\ApiSerializer(BasicDiscussionSerializer::class))
         ->attributes(DiscussionAttributes::class),
+
+    (new Extend\ApiSerializer(TagSerializer::class))
+        ->attributes(TagAttributes::class),
 
     (new Extend\ModelVisibility(Post::class))
         ->scope(PostVisibilityScope::class),

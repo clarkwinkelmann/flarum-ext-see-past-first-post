@@ -51,6 +51,10 @@ class DiscussionAttributes
 
             if ($settings->get('clarkwinkelmann-see-past-first-post.hideFirstPost')) {
                 $discussion->setRelation('firstPost', null);
+
+                // Flarum's search correctly prevents searching in posts that are not visible to the user
+                // However when searching by title, mostRelevantPost defaults to the first post which we need to hide
+                $discussion->setRelation('mostRelevantPost', null);
             }
         }
 

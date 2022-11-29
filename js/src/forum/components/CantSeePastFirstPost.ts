@@ -27,7 +27,7 @@ export default class CantSeePastFirstPost extends Component {
             onclick: () => {
                 // Re-use the discussion controls, that way other extensions that replaced the login action
                 // Will also apply here without any additional logic (like the kilowhat/wordpress wordpress-only login)
-                DiscussionControls.replyAction().catch(() => {
+                DiscussionControls.replyAction(false, false).catch(() => {
                     // Ignore rejection since it's rejected when the modal opens
                 });
             },

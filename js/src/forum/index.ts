@@ -54,9 +54,9 @@ app.initializers.add('clarkwinkelmann-see-past-first-post', () => {
             return;
         }
 
-        vdom.children.forEach(content => {
+        vdom.children.forEach((content: any) => {
             if (content.attrs && content.attrs.className.indexOf('DiscussionListItem-content') !== -1) {
-                const countItemIndex = content.children.findIndex(d => d.attrs && d.attrs.className === 'DiscussionListItem-count');
+                const countItemIndex = content.children.findIndex((d: any) => d.attrs && d.attrs.className === 'DiscussionListItem-count');
 
                 if (countItemIndex !== -1) {
                     content.children.splice(countItemIndex, 1);

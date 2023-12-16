@@ -34,7 +34,7 @@ You can [contact me](https://clarkwinkelmann.com/flarum) to sponsor additional f
 
 Support is offered on a "best effort" basis through the Flarum community thread.
 
-**Sponsors**: [HereWeLink](https://www.herewelink.fr/), [FlarumTR](https://flarumtr.com/)
+**Sponsors**: HereWeLink, [FlarumTR](https://flarumtr.com/)
 
 ## Links
 
